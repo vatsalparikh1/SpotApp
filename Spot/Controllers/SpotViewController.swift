@@ -25,19 +25,24 @@ class SpotViewController: UIViewController {
     @IBAction func switchView(_ sender: UISegmentedControl) {
         switch segUI.selectedSegmentIndex{
         case 0:
-            self.aboutView.isHidden = true
-            self.postView.isHidden = false
-        case 1:
             self.aboutView.isHidden = false
             self.postView.isHidden = true
+        case 1:
+            self.aboutView.isHidden = true
+            self.postView.isHidden = false
         default:
             break
         }
     }
     override func viewDidLoad() {
+        
+        self.postView.isHidden = true
+        self.aboutView.isHidden = false
+        
         super.viewDidLoad()
         self.view.backgroundColor = .black
-        segUI.selectedSegmentIndex = 1
+        segUI.selectedSegmentIndex = 0
+        
         
         DispatchQueue.global().async{
             let dispatch = DispatchGroup()
