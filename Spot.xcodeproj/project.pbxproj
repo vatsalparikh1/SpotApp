@@ -21,6 +21,7 @@
 		1DF6E05522089F4800BA0C36 /* SpotUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF6E05422089F4800BA0C36 /* SpotUITests.swift */; };
 		3E18C6CF226E543A000751E6 /* SpotPage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E18C6CE226E543A000751E6 /* SpotPage.storyboard */; };
 		3E18C6D1226E55F3000751E6 /* ProfileSB.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E18C6D0226E55F3000751E6 /* ProfileSB.storyboard */; };
+		3E18C6D3226E5FDB000751E6 /* TabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E18C6D2226E5FDB000751E6 /* TabBar.storyboard */; };
 		3E6189572213DEAD00A7CFF4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6189562213DEAD00A7CFF4 /* LoginViewController.swift */; };
 		3E9178EB225A688400AFB2DA /* SpotsButtonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9178EA225A688400AFB2DA /* SpotsButtonViewController.swift */; };
 		3EC4D92D225C21BF0061F36F /* CreatePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC4D92C225C21BF0061F36F /* CreatePostViewController.swift */; };
@@ -79,6 +80,7 @@
 		286B836E6CA8EF95A3DBF973 /* Pods_Spot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Spot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E18C6CE226E543A000751E6 /* SpotPage.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SpotPage.storyboard; sourceTree = "<group>"; };
 		3E18C6D0226E55F3000751E6 /* ProfileSB.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ProfileSB.storyboard; sourceTree = "<group>"; };
+		3E18C6D2226E5FDB000751E6 /* TabBar.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TabBar.storyboard; sourceTree = "<group>"; };
 		3E6189562213DEAD00A7CFF4 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3E9178EA225A688400AFB2DA /* SpotsButtonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotsButtonViewController.swift; sourceTree = "<group>"; };
 		3EC4D92C225C21BF0061F36F /* CreatePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostViewController.swift; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 		1DF6E06722089F9400BA0C36 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3E18C6D2226E5FDB000751E6 /* TabBar.storyboard */,
 				3E18C6D0226E55F3000751E6 /* ProfileSB.storyboard */,
 				3E18C6CE226E543A000751E6 /* SpotPage.storyboard */,
 				1DF6E03822089F4500BA0C36 /* Main.storyboard */,
@@ -370,6 +373,7 @@
 				3E18C6CF226E543A000751E6 /* SpotPage.storyboard in Resources */,
 				3EDBE3CB2208B28B006D6B75 /* GoogleService-Info.plist in Resources */,
 				7A5E078F2233165B00B53B58 /* MarkerInfoWindowView.xib in Resources */,
+				3E18C6D3226E5FDB000751E6 /* TabBar.storyboard in Resources */,
 				1DF6E03C22089F4800BA0C36 /* Assets.xcassets in Resources */,
 				3E18C6D1226E55F3000751E6 /* ProfileSB.storyboard in Resources */,
 				1DF6E03A22089F4500BA0C36 /* Main.storyboard in Resources */,

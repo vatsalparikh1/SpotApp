@@ -169,6 +169,14 @@
                                 <rect key="frame" x="0.0" y="452" width="29" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XVk-pT-Hpa">
+                                <rect key="frame" x="154" y="539" width="98" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Return to Map"/>
+                                <connections>
+                                    <segue destination="wTc-e2-N1L" kind="presentation" id="Owd-Ff-oOA"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="zO4-XF-KnK"/>
@@ -188,6 +196,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m4E-iD-sSX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2045" y="3852"/>
+        </scene>
+        <!--TabBar-->
+        <scene sceneID="Cbw-H5-L7U">
+            <objects>
+                <viewControllerPlaceholder storyboardName="TabBar" id="wTc-e2-N1L" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZfM-P5-JKJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2701" y="3852"/>
         </scene>
         <!--Spot Page Post View Controller-->
         <scene sceneID="z8c-1I-qWo">
