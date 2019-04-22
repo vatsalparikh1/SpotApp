@@ -266,7 +266,7 @@
             <objects>
                 <viewController id="McA-Zb-s0J" customClass="CreatePostViewController" customModule="Spot" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eD9-j3-nN6">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="670"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="4oF-Q7-Kd7"/>
@@ -751,7 +751,8 @@
         <image name="SettingsIcon" width="26" height="26"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="bBT-m9-MKU"/>
+        <segue reference="2TA-DW-OVH"/>
+        <segue reference="ZiT-fG-auW"/>
         <segue reference="RNW-2x-rNB"/>
         <segue reference="FMj-j9-qIR"/>
     </inferredMetricsTieBreakers>

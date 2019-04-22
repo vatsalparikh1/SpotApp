@@ -317,7 +317,7 @@ class SignUpViewController: UIViewController {
     }
     
     @objc func goToLoginPage(_sender: AnyObject){
-        self.performSegue(withIdentifier: "signUpToTabBar", sender: self) //Go to login
+        self.performSegue(withIdentifier: "signupToLogin", sender: self) //Go to login
     }
     
     
@@ -341,7 +341,7 @@ class SignUpViewController: UIViewController {
                 if error == nil && user != nil { //if no errors then create user
                     print("user created")
                     self.saveUserToFirebase(name:name, username: username, email: email)
-                    self.performSegue(withIdentifier: "signUpToInfo", sender: self) //Go to intro page
+                    self.performSegue(withIdentifier: "signUpToTabBar", sender: self) //Go to intro page
                 }else{
                     print(error?.localizedDescription ?? "Sign-up Error")
                     
@@ -373,7 +373,8 @@ class SignUpViewController: UIViewController {
                       "username" : username,
                       "userBio" : "",
                       "friendsList" :  friendsList,
-                      "spotsList" : spotsList
+                      "spotsList" : spotsList,
+                      "image url" : ""
             ] as [String : Any]
         
         db.collection("users").document(userId).setData(values, merge: true)
