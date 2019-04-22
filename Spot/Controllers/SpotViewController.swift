@@ -26,7 +26,7 @@ class SpotViewController: UIViewController {
         switch segUI.selectedSegmentIndex{
         case 0:
             self.aboutView.isHidden = true
-            self.postView.isHidden = true
+            self.postView.isHidden = false
         case 1:
             self.aboutView.isHidden = false
             self.postView.isHidden = true
