@@ -317,7 +317,7 @@ class SignUpViewController: UIViewController {
     }
     
     @objc func goToLoginPage(_sender: AnyObject){
-        self.performSegue(withIdentifier: "signupToLogin", sender: self) //Go to intro page
+        self.performSegue(withIdentifier: "signUpToTabBar", sender: self) //Go to login
     }
     
     
