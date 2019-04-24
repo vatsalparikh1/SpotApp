@@ -52,6 +52,7 @@ class MapViewController: UIViewController {
         mapView.delegate = self
         locationManager.delegate = self
         
+        hideLandmarks()
         
         locationGroup.enter()
         startLocationServices()
@@ -185,6 +186,20 @@ class MapViewController: UIViewController {
     func loadNiB() -> MarkerInfoWindow {
         let infoWindow = MarkerInfoWindow.instanceFromNib() as! MarkerInfoWindow
         return infoWindow
+    }
+    
+    //removing most default landmarks on map so that map looks cleaner and less cluttered
+    func hideLandmarks() {
+        do {
+            // Set the map style by passing the URL of the local file.
+            if let styleURL = Bundle.main.url(forResource: "map-style", withExtension: "json") {
+                mapView.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
+            } else {
+                print("Unable to find map-style.json")
+            }
+        } catch {
+            print("One or more of the map styles failed to load. \(error)")
+        }
     }
 
 }
