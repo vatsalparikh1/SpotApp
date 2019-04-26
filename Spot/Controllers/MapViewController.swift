@@ -28,7 +28,7 @@ class MapViewController: UIViewController {
     let storage = Storage.storage()
     let spotsRef = Firestore.firestore().collection("spots")
     let geoFirestore = GeoFirestore(collectionRef: Firestore.firestore().collection("spots"))
-    let id: String = Auth.auth().currentUser?.uid ?? "invalid user"
+    let uid: String = Auth.auth().currentUser?.uid ?? "invalid user"
     
     let rainbowSpot = UIImage(named: "RainbowSpotIcon")
     let blackSpot = UIImage(named: "BlackSpotIcon")
@@ -40,10 +40,12 @@ class MapViewController: UIViewController {
     var locationMarker : GMSMarker? = GMSMarker()
     
     var circleQuery: GFSCircleQuery?
+    let HALF_MILE_IN_KM = 0.804672
     let locationGroup = DispatchGroup()
     var firstTimeGettingLocation = true
     
     var spotID : String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -62,13 +64,17 @@ class MapViewController: UIViewController {
             guard let lat = self.mapView.myLocation?.coordinate.latitude,
                 let lng = self.mapView.myLocation?.coordinate.longitude else { return }
             
-            self.circleQuery = self.geoFirestore.query(withCenter: GeoPoint(latitude: lat, longitude: lng), radius: 0.804672)
+            self.circleQuery = self.geoFirestore.query(withCenter: GeoPoint(latitude: lat, longitude: lng), radius: self.HALF_MILE_IN_KM)
             
             let _ = self.circleQuery?.observe(.documentEntered, with: self.loadSpotFromDB)
  
  
         }
  
+    }
+    
+    @IBAction func addSpot(_ sender: Any) {
+        
     }
     
     
@@ -79,11 +85,6 @@ class MapViewController: UIViewController {
         
         let myLocation = CLLocationCoordinate2D(latitude: lat, longitude: lng)
         mapView.animate(toLocation: myLocation)
-    }
-    
-
-    @IBAction func addSpot(_ sender: Any) {
-        
     }
     
     
@@ -104,6 +105,15 @@ class MapViewController: UIViewController {
             
         }
     }
+    
+    //helper function to determine if current user can access locked part of spot page
+    func canAccessLockedSpot(data: [String:Any]) -> Bool {
+        let creator = data["created by"] as? String
+        let privacyLevel = data["privacyLevel"] as? String
+        let userIsApproved = data["approved"] as! Bool
+        
+        return creator == uid || privacyLevel == "public" || userIsApproved
+    }
 
     
     //getting spot from database
@@ -120,6 +130,9 @@ class MapViewController: UIViewController {
                     let long = location?.coordinate.longitude as! Double
                     let privacyLevel = document.get("privacyLevel") as? String
                     let spotName = document.get("spot name")
+                    let approvedUsers = document.get("approved users") as? [String]
+                    let approved = approvedUsers?.contains(self.uid) ?? false
+                    let creator = document.get("created by") as? String
                     
                     var image = UIImage(named: "Signuplogo")
                     
@@ -139,7 +152,7 @@ class MapViewController: UIViewController {
                     }
                     
                     group.notify(queue: DispatchQueue.main) {
-                        let spotData = ["spotId": spotKey, "description": description, "latitude": lat, "longitude": long, "privacyLevel": privacyLevel, "spotName": spotName, "image": image]
+                        let spotData = ["spotId": spotKey, "description": description, "latitude": lat, "longitude": long, "privacyLevel": privacyLevel, "approved": approved, "spotName": spotName, "created by": creator, "image": image]
                         
                         self.loadSpotToMap(data: spotData)
                     }
@@ -280,6 +293,7 @@ extension MapViewController: GMSMapViewDelegate {
         
         circleQuery?.center = CLLocation(latitude: lat, longitude: long)
     }
+    
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker){
         self.spotID = infoWindow.spotData!["spotId"] as! String
         

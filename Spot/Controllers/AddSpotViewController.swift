@@ -25,8 +25,8 @@ class AddSpotViewController: UIViewController{
     
     var submitBtn : UIButton!
     
-    var pubBtnWasChecked : Bool!
-    var friendBtnWasChecked : Bool!
+    var pubBtnWasChecked : Bool = false
+    var friendBtnWasChecked : Bool = false
     
     var urlStr : String = " "
     
@@ -341,7 +341,7 @@ class AddSpotViewController: UIViewController{
         
         db.collection("spots").document(spotId).setData(values, merge: true)
 //        db.collection("spots").document(spotId).setData(locations, merge: true)
-        let ArrayLocation = setSpotLocations(userLocation: currentLocation, spotID: spotId)
+        setSpotLocations(userLocation: currentLocation, spotID: spotId)
         
         //Get the time that the post was created
         let timestamp = NSDate().timeIntervalSince1970
@@ -351,26 +351,17 @@ class AddSpotViewController: UIViewController{
         db.collection("spots").document(spotId).collection("feedPost").document(firstPostID).setData(["caption" : description, "posterID" : userId, "timestamp" : time], merge:true)
         
 //        db.collection("spots").document(spotId).collection("feedPost").addDocument(data: ["caption" : description, "posterID" : userId])
-
+        var btnVal: [String:String] = [:]
         
-        if(pubBtnWasChecked == true){
-            let btnVal = ["public" : 1]
-            db.collection("spots").document(spotId).setData(btnVal, merge: true)
-        }
-        else{
-            let btnVal = ["public" : 0]
-             db.collection("spots").document(spotId).setData(btnVal, merge: true)
-        }
-        
-        if(friendBtnWasChecked == true){
-            let btnVal = ["friends" : 1]
-            db.collection("spots").document(spotId).setData(btnVal, merge: true)
-        }
-        else{
-            let btnVal = ["friends" : 0]
-            db.collection("spots").document(spotId).setData(btnVal, merge: true)
+        if (pubBtnWasChecked) {
+            btnVal = ["privacyLevel" : "public"]
+        } else if (friendBtnWasChecked) {
+            btnVal = ["privacyLevel" : "friends"]
+        } else {
+            btnVal = ["privacyLevel" : "private"]
         }
         
+        db.collection("spots").document(spotId).setData(btnVal, merge: true)
         
         self.performSegue(withIdentifier: "spotFormSuccess", sender: self) //Go to success page
     }
@@ -494,7 +485,6 @@ extension AddSpotViewController: UIImagePickerControllerDelegate, UINavigationCo
         print("Unable to access your current location")
     }
     func setSpotLocations(userLocation: CLLocation, spotID: String) {
-        //old well
         GeoFirestore(collectionRef: Firestore.firestore().collection("spots")).setLocation(location: userLocation, forDocumentWithID: spotID) { (error) in
             if (error != nil) {
                 print("An error occured: \(String(describing: error))")
