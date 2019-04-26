@@ -217,6 +217,7 @@ class MapViewController: UIViewController {
 
 }
 
+
 //delegate to handle location related events
 extension MapViewController: CLLocationManagerDelegate {
     
@@ -294,7 +295,27 @@ extension MapViewController: GMSMapViewDelegate {
         circleQuery?.center = CLLocation(latitude: lat, longitude: long)
     }
     
-    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker){
+    func mapView(_ mapView: GMSMapView, didLongPressInfoWindowOf marker: GMSMarker) {
+        guard let userLat = mapView.myLocation?.coordinate.latitude,
+            let userLong = mapView.myLocation?.coordinate.longitude else { return }
+        
+        var markerData: Dictionary<String, Any>?
+        if let data = marker.userData! as? Dictionary<String, Any> {
+            markerData = data
+        }
+        
+        let spotLat = markerData!["latitude"] as! Double
+        let spotLong = markerData!["longitude"] as! Double
+        
+        //checking to see if user can open url in Google Maps app; if they don't then will open url in Apple Maps
+        if (UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!)) {
+            UIApplication.shared.open(URL(string: "comgooglemaps://?saddr=\(userLat),\(userLong)&daddr=\(spotLat),\(spotLong)")!)
+        } else {
+            UIApplication.shared.open(URL(string: "http://maps.apple.com/?saddr=\(userLat),\(userLong)&daddr=\(spotLat),\(spotLong)")!)
+        }
+    }
+    
+    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
         self.spotID = infoWindow.spotData!["spotId"] as! String
         
         self.performSegue(withIdentifier: "mapToSpotPage", sender: self )
