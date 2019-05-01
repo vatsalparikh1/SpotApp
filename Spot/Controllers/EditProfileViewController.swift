@@ -169,6 +169,7 @@ class EditProfileViewController: UIViewController {
     }
     //end of LoadView
     
+    //Adds bio and initiates img to be added to firebase
     @objc func handleCreatePost(_sender: AnyObject){
         let userBio = self.userBioTextField.text
         
@@ -229,6 +230,7 @@ class EditProfileViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
+    //Puts an image into firebase as a URL
     func uploadPostImage(_ image:UIImage, userId: String,  completion: @escaping ((_ url:String?) -> ())){
         
         let imageId = UUID().uuidString
@@ -266,24 +268,13 @@ class EditProfileViewController: UIViewController {
         }
     }
     
-    
+    // Opens The camera function and looks into PhotoLibrary
     @objc func openCamRoll(_sender: AnyObject){
         imgPicker.sourceType = .photoLibrary
         imgPicker.allowsEditing = true
         present(imgPicker, animated: true, completion: nil)
     }
-    
-    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
@@ -303,16 +294,5 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
         
         dismiss(animated: true, completion: nil)
     }
-    
-    
-    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    //        if let navVC = segue.destinationViewController as? UINavigationController{
-    //            if let historyVC = navVC.viewControllers[0] as? HistoryController{
-    //                historyVC.detailItem = barcodeInt as AnyObject
-    //            }
-    //        }
-    //    }
-    
-    
     
 }
