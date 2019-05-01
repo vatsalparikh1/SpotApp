@@ -43,16 +43,16 @@ class ProfileViewController: UIViewController {
     private var childViewController: SpotsButtonViewController?
     @IBOutlet weak var ProfileIcon: UIImageView!
     
-    
+    //Click on photomap button to go to photomap subview
     @IBAction func onTapPhotomapButton(_ sender: Any) {
         childViewController?.reloadContent("Photomap")
     }
-    
+    //Click on spot button to go to spot subview
     @IBAction func onTapSpotsButton(_ sender: Any) {
         childViewController?.reloadContent("Spots")
     }
     
-    
+    //Click on Friends Button to go to Friends subview
     @IBAction func onTapFriendsButton(_ sender: Any) {
         childViewController?.reloadContent("Friends")
     }
@@ -80,11 +80,12 @@ class ProfileViewController: UIViewController {
         runDispatch()
         
     }
-
+    //notify in log when button is tapped
     @objc func buttonAction(sender: UIButton!) {
         print("Button tapped")
     }
     
+    //dispatch puts username and name to Heading
     func runDispatch() {
         DispatchQueue.global().async {
             let dispatchGroup = DispatchGroup()
@@ -97,7 +98,7 @@ class ProfileViewController: UIViewController {
                         print("Error getting documents: \(err)")
                     } else{
                         
-                        
+                        //Getting name and username
                         self.nameGlobal = (snapshot?.get("name") as! String)
                         self.usernameGlobal = (snapshot?.get("username") as! String)
                         
@@ -109,7 +110,6 @@ class ProfileViewController: UIViewController {
                         
                         // Setting the title of the profile page to be the current user
                         self.title = self.usernameGlobal
-                        
                         
                         
                         //Adding the Profile Name Underneath the Profile Icon
@@ -131,7 +131,6 @@ class ProfileViewController: UIViewController {
                         self.view.addSubview(profile_Name)
                         //
                       
-                        
                         // load Place Name underneath the Profile Name
                         let currentLocationName = UILabel(frame: CGRect(x: 150, y: 220, width: 101, height: 18))
                         currentLocationName.lineBreakMode = .byWordWrapping
@@ -150,8 +149,6 @@ class ProfileViewController: UIViewController {
                         currentLocationName.sizeToFit()
                         self.view.addSubview(currentLocationName)
                         
-                        
-                        //need to query list of user's friends and store them in a global variable
                     }
                     dispatchGroup.leave()
                     print("Did the first thing")
@@ -163,13 +160,13 @@ class ProfileViewController: UIViewController {
         
     }
     
-    // GET THE NUMBER OF SPOTS AND FRIENDS
-    
+    // GET THE NUMBER OF SPOTS AND FRIENDS A USER HAS FROM FIREBASE
     func getProfileInt() {
         self.db.collection("users").document(self.id).getDocument { (snapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
             }else {
+                
                 //Getting number of friends
                 self.friendsArray = snapshot?.get("friendsList") as! [String]
                 self.friendsInt = self.friendsArray.count
@@ -181,6 +178,7 @@ class ProfileViewController: UIViewController {
                 self.spotsInt = self.spotsArray.count
                 print ("Getting number of spots")
                 print (self.spotsArray)
+                
                 //Adding the friends number label
                 let friendsIntLabel = UILabel(frame: CGRect(x: 322, y: 285, width: 50, height: 21))
                 friendsIntLabel.textAlignment = .center //For center alignment
@@ -204,6 +202,7 @@ class ProfileViewController: UIViewController {
         }
     }
     
+    //Getting the Bio of the user from Firebase
     func getUserBio() {
         self.db.collection("users").document(self.id).getDocument { (snapshot, err) in
             if let err = err {
@@ -227,7 +226,7 @@ class ProfileViewController: UIViewController {
     }
         
     
-    
+    //Inserting an image into the profileIcon
     func profileIconInsert() {
         //making the image circular
         ProfileIcon.layer.borderWidth = 1
@@ -268,18 +267,7 @@ class ProfileViewController: UIViewController {
             }
         }
         
-        
-        
-        
     }
-    
-    
-//    UnComment once you can change the font of the button programmatically
-//    func setButtonTitles() {
-//        let UserSpotsString = "(" + String(userSpots) + ") \nSpots"
-//        SpotsView.setTitle(UserSpotsString, for: UIControl.State.normal)
-//
-//    }
     
     // MARK: - Navigation
 
@@ -296,7 +284,7 @@ class ProfileViewController: UIViewController {
     
     // Segue to Navigation Controller
 
-    
+    //Logs User out of his Account
     @objc func logoutFunc(_sender: AnyObject){
         
         do {
