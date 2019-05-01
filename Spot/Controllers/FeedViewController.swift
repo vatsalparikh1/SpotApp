@@ -36,6 +36,7 @@ class FeedViewController: UIViewController {
     
     override func viewDidLoad() {
         
+        //Add the first post to the list, this blank post will display initially and then be overwritten upon loading posts from database
             for i in 0...1{
     
                 self.postsList.append(Post(spotname: "",captionText: "", photoObj: UIImage(), uNameString: "",likesCount:0, location: ""))
@@ -50,37 +51,41 @@ class FeedViewController: UIViewController {
         usertestGlobal = "test"
         
         //Get User's current location
-        if CLLocationManager.locationServicesEnabled() == true{
-            if CLLocationManager.authorizationStatus() == .restricted ||
-                CLLocationManager.authorizationStatus() == .denied ||
-                CLLocationManager.authorizationStatus() == .notDetermined{
-                
-                locationManager.requestWhenInUseAuthorization()
-            }
-            locationManager.desiredAccuracy = 1.0
-            locationManager.startUpdatingLocation()
-            currentLocation = locationManager.location
-            
-        }else{
-            print("please turn on location services")
-        }
+//        if CLLocationManager.locationServicesEnabled() == true{
+//            if CLLocationManager.authorizationStatus() == .restricted ||
+//                CLLocationManager.authorizationStatus() == .denied ||
+//                CLLocationManager.authorizationStatus() == .notDetermined{
+//
+//                locationManager.requestWhenInUseAuthorization()
+//            }
+//            locationManager.desiredAccuracy = 1.0
+//            locationManager.startUpdatingLocation()
+//            self.currentLocation = locationManager.location
+//
+//        }else{
+//            print("please turn on location services")
+//        }
         
-        //userLat = currentLocation.coordinate.latitude ?? 0
-       // userLong = currentLocation.coordinate.longitude ?? 0
+//        self.userLat = self.currentLocation.coordinate.latitude ?? 0
+//        self.userLong = self.currentLocation.coordinate.longitude ?? 0
+        
         
         self.tableView.dataSource = self
         
-        
+        //
         
         self.navigationItem.titleView = UIImageView(image: UIImage(named: "Signuplogo.png"))
         
-        self.circleQuery = self.geoFirestoreSpots.query(withCenter: GeoPoint(latitude: self.userLat, longitude: self.userLong), radius: 0.804672)
+        //The following code can be used to get posts only for documents that are within a geographical radius of the user, as of now, we are just loading all of the documents
+//        self.circleQuery = self.geoFirestoreSpots.query(withCenter: GeoPoint(latitude: self.userLat, longitude: self.userLong), radius: 0.804672)
         
         DispatchQueue.global().async {
             
             let dispatchgroup = DispatchGroup()
             
             dispatchgroup.enter()
+            
+            //Load all feed posts that are affiliated with all spots
             
             Firestore.firestore().collection("spots").getDocuments { (documentsAll, err1) in
                 
@@ -115,6 +120,7 @@ class FeedViewController: UIViewController {
     } //End view did load
     
     
+    //This function loads all of the posts and appends them as Post objects (see Post.swift file in Models folder) to the postsList global variable
     func loadSpots(nearbySpotID : String) {
         
         let pathOfNearby = self.db.collection("spots").document(nearbySpotID)
@@ -237,7 +243,7 @@ class FeedViewController: UIViewController {
 }
 
 
-
+//The following code is used to set up the Table View that is responsible for displaying the posts in the User Interface
 extension FeedViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
