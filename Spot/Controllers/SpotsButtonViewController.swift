@@ -65,14 +65,18 @@ class SpotsButtonViewController: UIViewController {
                 //Getting number of friends
                 self.friendsArray = snapshot?.get("friendsList") as! [String]
                 self.friendsInt = self.friendsArray.count
-                
                 print ("Getting number of friends")
                 print (self.friendsArray)
-                self.friends = self.friendsArray[0]
-                self.friends = String(self.friends)
                 
-                self.findFriendName(friendId: self.friends)
-                
+                if (self.friendsInt != 0){
+                    print (self.friendsArray)
+                    self.friends = self.friendsArray[0]
+                    self.friends = String(self.friends)
+                    
+                    
+                    self.findFriendName(friendId: self.friends)
+                    
+                }
                 //find FriendName
                 
                 
