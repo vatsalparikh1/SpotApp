@@ -54,7 +54,8 @@ class ProfileViewController: UIViewController {
     
     //Click on Friends Button to go to Friends subview
     @IBAction func onTapFriendsButton(_ sender: Any) {
-        childViewController?.reloadContent("Friends")
+        childViewController?.reloadFriends("friends")
+        
     }
     
     //VIEW LOAD
