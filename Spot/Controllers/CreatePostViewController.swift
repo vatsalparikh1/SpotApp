@@ -62,7 +62,7 @@ class CreatePostViewController: UIViewController{
         cancelBtnString.addAttribute(NSAttributedString.Key.paragraphStyle, value:paragraphStyle, range: cancelBtnRange)
         cancelBtn.attributedText = cancelBtnString
         cancelBtn.sizeToFit()
-        self.view.addSubview(cancelBtn)
+//        self.view.addSubview(cancelBtn)
 
 
         Firestore.firestore().collection("spots").document(self.spotID).getDocument { (snapshot, err) in

@@ -272,6 +272,8 @@ extension FeedViewController: UITableViewDataSource {
         cell.backgroundColor = UIColor.black
         print("height", cell.heightAnchor)
         
+        //view.subviews.forEach({ $0.removeFromSuperview() })
+        cell.subviews.forEach({$0.removeFromSuperview()})
         
         //Display the username of the user that created the post
         let handleDisplay1 = UILabel(frame: CGRect(x: 46, y: 8, width: 100, height: 15))
